@@ -1,0 +1,77 @@
+
+$field__input--orange: $ebSoftOrange;
+$field__input--bdr-grey: $ebGreyBdr;
+$field__input--grey: $txtgrey;
+$field__input--label: darken($white, 30%);
+$field__input--red: $ebRedTxt;
+$field__input--bg: rgba(0, 0, 0, 0.8);
+$field__label--width: 150px;
+
+select {
+  font-family: Roboto,Arial,sans-serif;
+  @include fonts(16px, 400, left, 1.11em);
+  border: 1px solid $field__input--bdr-grey;
+  outline: none;
+  border-radius: 2px;
+  box-sizing: border-box;
+  background: url('img/select-arrows.svg') no-repeat 99% 50% $white;
+  .ie-9 & {
+    padding-right: 5px;
+    background: none;
+  }
+  padding: 10px 30px 10px 10px;
+  height: 45px;
+  transition: 0.2s border-color ease-out, 0.2s box-shadow ease-out, 0.2s padding ease-out;
+  -webkit-appearance: none;
+  .field & {
+    font-size: 1.4em;
+  }
+  &.field__input--error, .field--error & {
+    border-color: $field__input--red;
+    box-shadow: 0 0 0 1px $field__input--red;
+    .eb-mobile & {
+      padding-right: 55px;
+      background: url('img/elect-arrows.svg') no-repeat 100% 50%, url('img/icon-input-required.svg') no-repeat right 26px center;
+    }
+    &:hover, &:focus {
+      border-color: $field__input--red;
+      box-shadow: 0 0 0 1px $field__input--red;
+      .eb-mobile & {
+        padding-right: 55px;
+        background: url('/img/select-arrows.svg') no-repeat 100% 50%, url('img/icon-input-required.svg') no-repeat right 26px center;
+      }
+    }
+
+  }
+  &:hover, &:focus {
+    border-color: $field__input--orange;
+    .field--error & {
+      border-color: $field__input--red;
+    }
+  }
+  &:focus {
+    box-shadow: 0 0 0 1px $field__input--orange;
+    .field--error & {
+      border-color: $field__input--red;
+      box-shadow: 0 0 0 1px $field__input--red;
+    }
+  }
+}
+
+.field--error.field--select .field__wrapper:after {
+  position: static;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 0 12px;
+  transform: none;
+  -webkit-animation: field--select .35s 1;
+  animation: field--select .35s 1;
+  .eb-mobile & {
+    display: none;
+  }
+}
+
+_:-ms-fullscreen, :root select {
+  padding-right: 5px;
+  background: $white;
+}

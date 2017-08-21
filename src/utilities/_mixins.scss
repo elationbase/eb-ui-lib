@@ -1,0 +1,52 @@
+// _mixins
+// ========
+@mixin backImage($image) {
+  background: url($image) no-repeat 50% 20% ;
+  background-size: cover;
+  transition: all 0.4s ease-out;
+  background-attachment: fixed;
+}
+
+@mixin media($point) {
+
+  $mobile: 768px;
+  $tablet: 1024px;
+  $laptop: 1280px;
+  $desktop: 1281px;
+
+  @if $point == mobile {
+    @media only screen and (max-width: $mobile - 1) { @content; }
+  }
+  @else if $point == tablet {
+    @media only screen and (min-width: $mobile + 1) and (max-width: $tablet) { @content; }
+  }
+  @else if $point == laptop {
+    @media only screen and (min-width: $tablet + 1) and (max-width: $laptop) { @content; }
+  }
+  @else if $point == desktop {
+    @media only screen and (min-width: $desktop) { @content; }
+  }
+  @else if $point == portrait {
+    @media only screen and (orientation: portrait) { @content; }
+  }
+  @else if $point == landscape {
+    @media only screen and (orientation: landscape) { @content; }
+  }
+
+}
+
+@mixin aspect-ratio($width, $height) {
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+    }
+}
+
+@mixin fonts($size, $weight, $align, $lheight) {
+  font-size: $size;
+  font-weight: $weight;
+  text-align: $align;
+  line-height: $lheight;
+}

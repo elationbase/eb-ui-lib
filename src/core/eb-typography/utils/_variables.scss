@@ -1,0 +1,72 @@
+////
+/// Define default variable values for typography.
+////
+
+/// Define alternate text styles.
+///
+/// @type {Map}
+$eb-type-styles: (
+  h1-desktop: (
+    size: huge,
+    weight: light,
+    properties: (
+      color: $ebText,
+      border: none
+    )
+  ),
+  h1-mobile: (
+    size: giant,
+    weight: regular,
+    properties: (
+      color: $ebText,
+      border: none
+    )
+  ),
+  h2-desktop: (
+    size: giant,
+    weight: medium,
+    properties: (
+      color: $ebText,
+      border: none
+    )
+  ),
+  h3: (
+    size: large,
+    weight: medium,
+    properties: (
+      color: $ebText,
+      border: none
+    )
+  ),
+  body-1-desktop: (
+    size: base,
+    weight: regular,
+    properties: (
+      color: $ebText,
+      border: none
+    )
+  ),
+  body-1-mobile: (
+    size: small,
+    weight: regular,
+    properties: (
+      color: $ebText,
+      border: none
+    )
+  ),
+  body-2: (
+    size: tiny,
+    weight: regular,
+    properties: (
+      color: $ebText,
+      border: none
+    )
+  ),
+  small: (
+    size: micro,
+    weight: regular,
+    properties: (
+      color: $ebTextLt
+    )
+  )
+) !default;

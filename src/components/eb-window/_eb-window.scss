@@ -1,0 +1,59 @@
+@import "variables";
+//@import "../../partials/mixins";
+@import "../jeet/jeet";
+
+
+$eb-window__window--bdr: $ebBtnGrey;
+$eb-window__window--color: $white;
+$eb-window__window--shadow: $ebGreyBdr;
+$eb-window__title--bg: $ebBlue;
+$eb-window__title--color: $white;
+$eb-window__info--bg: $ebBgGrey;
+$eb-window__footer--bdr: $ebBtnGrey;
+
+.eb-window {
+  font-size: 10px;
+  background-color: $white;
+  border: 1px solid $ebBtnGrey;
+  box-shadow: 0 1px 0 $ebGreyBdr;
+  border-radius: 5px;
+  @include j-cf();
+  &__header {
+    &__title, &__info {
+      padding: 13px 20px;
+    }
+    &__title {
+      background: $eb-window__title--bg;
+      border-radius: 5px 5px 0 0;
+      &, h2, a {
+        color: $eb-window__title--color;
+      }
+      h2 {
+          font-size: 1.8em;
+          font-weight: 500;
+          text-align: left;
+          line-height: 1em;
+        margin: 0;
+      }
+      p {
+          font-size: 1.6em;
+          font-weight: 500;
+          text-align: left;
+          line-height: 1em;
+      }
+    }
+    &__info {
+      background: $eb-window__info--bg;
+      @include j-cf();
+    }
+  }
+  &__body {
+    padding: 28px;
+    @include j-cf();
+  }
+  &__footer {
+    border-top: 1px solid $eb-window__footer--bdr;
+    padding: 10px;
+    text-align: right;
+  }
+}
