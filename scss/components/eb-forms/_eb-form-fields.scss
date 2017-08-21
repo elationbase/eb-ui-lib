@@ -1,0 +1,246 @@
+@import "form-checkbox-radio";
+@import "form-select";
+
+////////////
+// INPUTS //
+////////////
+
+$field__input--orange: $chewySoftOrange;
+$field__input--bdr-grey: $chewyGreyBdr;
+$field__input--grey: $txtgrey;
+$field__input--label: darken($white, 40%);
+$field__input--red: $chewyRedTxt;
+$field__input--bg: rgba(0, 0, 0, 0.8);
+$field__label--width: 150px;
+
+
+@keyframes field__message {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes field--error {
+  0% {
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    transform: translateY(-50%) scale(1.35);
+  }
+  100% {
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+@keyframes field--select {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+input {
+  &[type="text"], &[type="email"], &[type="password"], &[type="tel"] {
+    @include fonts(1.6em, 400, left, 1.11em);
+    display: block;
+    width: 100%;
+    height: 50px;
+    border: 1px solid $field__input--bdr-grey;
+    outline: none;
+    border-radius: 2px;
+    box-sizing: border-box;
+    transition: 0.2s border-color ease-out, 0.2s box-shadow ease-out, 0.2s padding ease-out;
+    padding: 0 10px;
+    -webkit-appearance: none;
+    &.field__input--error {
+      background: $white url('//chewy.com/assets/img/icons/icon-input-required.svg') no-repeat right 10px center;
+      background-size: 20px;
+      border-color: $field__input--red;
+      box-shadow: 0 0 0 1px $field__input--red;
+      padding-right: 38px;
+      &:hover, &:focus {
+        border-color: $field__input--red;
+        box-shadow: 0 0 0 1px $field__input--red;
+      }
+    }
+    &:hover, &:focus {
+      border-color: $field__input--orange;
+      .field--error & {
+        border-color: $field__input--red;
+      }
+    }
+    &:focus {
+      box-shadow: 0 0 0 1px $field__input--orange;
+      .field--error & {
+        border-color: $field__input--red;
+        box-shadow: 0 0 0 1px $field__input--red;
+      }
+    }
+  }
+  .field--error & {
+    border-color: $field__input--red;
+    box-shadow: 0 0 0 1px $field__input--red;
+    padding-right: 38px;
+  }
+}
+
+.field {
+  position: relative;
+  font-size: 10px;
+  margin: 0 0 15px;
+  transition: .15s height ease-out;
+  &__wrapper {
+    position: relative;
+    .field--error & {
+      &:after {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        background: $white url('//chewy.com/assets/img/icons/icon-input-required.svg') no-repeat center;
+        background-size: 20px;
+        animation: field--error .35s 1;
+      }
+    }
+  }
+  &__message {
+    display: block;
+    @include fonts(1.2em, 400, left, 1.1em);
+    color: $field__input--red;
+    transition: .2s opacity ease-out;
+    animation: field__message .15s 1;
+    padding: 5px 20px 5px 0;
+    margin: 0;
+  }
+  label {
+    display: block;
+    font-weight: 400;
+    text-transform: none;
+    position: absolute;
+    height: 50px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    font-size: 1.6em;
+    text-align: left;
+    line-height: 1.8em;
+    margin: 0;
+    color: $field__input--label;
+    padding: 10px;
+    transition: 0.15s all ease-out;
+    &.no-transition {
+      transition: none;
+    }
+  }
+  &.field--loading {
+    label {
+      transition: none;
+    }
+  }
+  .field__input {
+    padding: 20px 10px 6px 9px;
+  }
+  &--focus, &--content, &--placeholder {
+    label {
+      height: auto;
+      line-height: 1em;
+      font-size: 1.1em;
+      padding: 7px 0 0 10px;
+    }
+  }
+  &--select {
+    label {
+      position: static;
+      height: auto;
+      padding: 5px 0;
+    }
+  }
+  &__wrapper {
+    .field--select & {
+      &:after {
+        display: none;
+      }
+    }
+  }
+  &__message {
+    display: block;
+    color: $field__input--red;
+    transition: .2s opacity ease-out;
+    padding: 5px 20px 5px 0;
+  }
+  &--textarea {
+    label {
+      width: auto;
+      top: 1px;
+      right: 1px;
+      left: 1px;
+      padding: 5px 5px 5px 10px;
+      background: $white;
+    }
+    .field__wrapper textarea {
+      padding-top: 25px;
+    }
+  }
+}
+
+textarea {
+  @include fonts(1.6em, 400, left, 1.3em);
+  border: 1px solid $field__input--bdr-grey;
+  outline: none;
+  border-radius: 2px;
+  box-sizing: border-box;
+  transition: 0.2s border-color ease-out, 0.2s box-shadow ease-out, 0.2s padding ease-out;
+  padding: 10px;
+  width: 100%;
+  &.field__input--error {
+    background: $white url('//chewy.com/assets/img/icons/icon-input-required.svg') no-repeat right 10px center;
+    background-size: 20px;
+    border-color: $field__input--red;
+    box-shadow: 0 0 0 1px $field__input--red;
+    padding-right: 38px;
+    &:hover, &:focus {
+      border-color: $field__input--red;
+      box-shadow: 0 0 0 1px $field__input--red;
+    }
+  }
+  &:hover, &:focus {
+    border-color: $field__input--orange;
+    .field--error & {
+      border-color: $field__input--red;
+    }
+  }
+  &:focus {
+    box-shadow: 0 0 0 1px $field__input--orange;
+    .field--error & {
+      border-color: $field__input--red;
+      box-shadow: 0 0 0 1px $field__input--red;
+    }
+  }
+  .field--error & {
+    border-color: $field__input--red;
+    box-shadow: 0 0 0 1px $field__input--red;
+    padding-right: 38px;
+  }
+}
+.form-fields-section h3 {
+  color: $chewyGreen;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.field--error ::-ms-clear {
+  display: none;
+}

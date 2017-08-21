@@ -1,0 +1,415 @@
+/* --------------------------
+CHEWY BUTTONS
+-------------------------- */
+
+// Variables //
+$btnFont : "Roboto", Arial, sans-serif;
+$btnRound : 4px;
+
+// Colors -- B&W
+$btnWhite : white;
+$btnEGrey : darken(white, 6.6%);;
+$btnF9Grey : darken(white, 2.2%);
+$btnDGrey : darken(white, 13.2%);
+$btnTextLight : $chewyTextSec;
+$btnTextDark : $chewyText;
+
+// Colors -- Orange
+$btnOrange : $chewyOrange;
+$btnOrangeHover : #e66700;
+$btnOrangeEnd : #d76101;
+$btnSoftOrange : #fbf3e6;
+$btnYellow : #f5a623;
+
+// Colors -- Blue
+$btnBlue : $chewyBlue;
+$btnSoftBlue : #f3f9fe;
+$darkBlue : #0d5ea1;
+
+
+.cw-btn {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background: none;
+  font-family: $btnFont;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 13px 35px 15px 35px;
+  margin-right: 15px;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: $btnRound;
+  transition: all, 0.4s, ease-out;
+  box-sizing: border-box;
+
+  &:hover, &:active, &:focus {
+    text-decoration: underline;
+    color: $btnBlue;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+
+  // COLOR VARIATIONS //
+  &--default {
+    background-color: $btnEGrey;
+    background: linear-gradient(to bottom, $btnF9Grey, $btnEGrey);
+    color: $black;
+    border: 1px solid darken($btnWhite, 20%);
+    box-shadow: 0 1px 0 0 darken($btnWhite, 20%);
+    &:hover, &:focus {
+      text-decoration: none;
+      background: linear-gradient(to bottom, $btnEGrey, $btnF9Grey);
+      color: $black;
+    }
+    &:active, &--active {
+      text-decoration: none;
+      box-shadow: inset 0 1px 0 0 darken($btnWhite, 20%);
+    }
+    &--active {
+      cursor: default;
+    }
+  }
+
+  // Orange - Action
+  &--action {
+    background-color: $btnOrange;
+    background: linear-gradient(to bottom, $btnOrange 0%,$btnOrange 45%,$btnOrangeEnd 100%);
+    color: $btnWhite;
+    font-weight: 500;
+    border: 1px solid rgba($black,.3);
+    box-shadow: 0 1px 0 0 $btnTextLight;
+    &:hover, &:focus {
+      text-decoration: none;
+      background: linear-gradient(to bottom, $btnOrangeHover, $btnOrange);
+      color: $btnWhite;
+    }
+    &:active, &--active {
+      text-decoration: none;
+      background: linear-gradient(to bottom, $btnOrangeHover, $btnOrange);
+      box-shadow: inset 0 1px 0 0 darken($btnWhite, 70%);
+      color: $btnWhite;
+    }
+    &--active {
+      cursor: default;
+    }
+  }
+
+  // Soft Orange
+  &--soft {
+    color: $btnTextDark;
+    background: $btnWhite;
+    border: 1px solid $btnDGrey;
+    box-shadow: 0 1px 0 0 $btnDGrey;
+    &:hover, &:focus {
+      text-decoration: none;
+      color: $btnTextDark;
+      background: $btnWhite;
+      border: 1px solid $btnYellow;
+      box-shadow: 0 1px 0 0 $btnYellow;
+    }
+    &:active, &--active {
+      text-decoration: none;
+      color: $btnTextDark;
+      background: $btnSoftOrange;
+      border: 1px solid $btnYellow;
+      box-shadow: 0 1px 0 0 $btnYellow;
+      &:hover, &:focus {
+        background: $btnSoftOrange;
+      }
+    }
+    &--active {
+      cursor: default;
+    }
+  }
+
+  // White and Blue
+  &--white {
+    color: $btnBlue;
+    background: $btnWhite;
+    border: 1px solid $btnDGrey;
+    box-shadow: 0 1px 0 0 $btnDGrey;
+    &:hover, &:focus {
+      text-decoration: none;
+      color: $btnBlue;
+      border-color: $btnBlue;
+      box-shadow: 0 1px 0 0 $btnBlue;
+    }
+    &:active {
+      text-decoration: none;
+      color: $btnBlue;
+      background: $btnWhite;
+      border-color: $btnBlue;
+      box-shadow: inset 0 1px 0 0 $btnBlue;
+    }
+    &--active {
+      cursor: default;
+      text-decoration: none;
+      color: $btnWhite;
+      background: $btnBlue;
+      border-color: $btnBlue;
+      box-shadow: 0 -1px 0 0 $btnBlue;
+      &:hover, &:focus {
+        text-decoration: none;
+        color: $btnWhite;
+        background: $btnBlue;
+        border-color: $btnBlue;
+        box-shadow: 0 -1px 0 0 $btnBlue;
+      }
+    }
+  }
+
+  // Flat
+  &--flat {
+    color: $btnBlue;
+    background-color: transparent;
+    border: 1px solid $btnBlue;
+    &:hover, &:focus {
+      text-decoration: none;
+      color: $btnBlue;
+      background: $btnSoftBlue;
+      border-color: $btnBlue;
+      box-shadow: inset 0 0 0 1px $btnBlue;
+    }
+    &:active, &--active {
+      text-decoration: none;
+      color: $btnBlue;
+      background: $btnSoftBlue;
+      border-color: $btnBlue;
+      box-shadow: inset 0 1px 0 0 $btnBlue;
+    }
+    &--active {
+      cursor: default;
+    }
+  }
+
+  // DARK BLUE BOLD
+  &--bold {
+    color: $white;
+    background-color: $darkBlue;
+    border: 1px solid $white;
+    &:hover, &:focus {
+      text-decoration: none;
+      color: $darkBlue;
+      background: $white;
+      border-color: $darkBlue;
+    }
+    &:active, &--active {
+      text-decoration: none;
+      color: $darkBlue;
+      border-color: $darkBlue;
+      box-shadow: inset 0 1px 0 0 $darkBlue;
+    }
+    &--active {
+      cursor: default;
+    }
+  }
+
+  // Blue
+  &--blue {
+    color: $white;
+    background-color: $btnBlue;
+    border: 1px solid $btnBlue;
+    font-weight: 500;
+    &:hover, &:focus {
+      text-decoration: none;
+      color: $btnBlue;
+      background: $white;
+      border-color: $btnBlue;
+    }
+    &:active, &--active {
+      text-decoration: none;
+      color: $btnBlue;
+      border-color: $btnBlue;
+      box-shadow: inset 0 1px 0 0 $btnBlue;
+    }
+    &--active {
+      cursor: default;
+    }
+  }
+
+  // Dashed
+  &--dashed {
+    color: $btnBlue;
+    background: $btnWhite;
+    border: 1px dashed $btnBlue;
+    &:hover, &:focus {
+      text-decoration: none;
+      color: $btnBlue;
+      background: $btnSoftBlue;
+      border: 1px solid $btnBlue;
+      border-color: $btnBlue;
+    }
+    &:active, &--active {
+      text-decoration: none;
+      color: $btnBlue;
+      background: $btnSoftBlue;
+      border-color: $btnBlue;
+      box-shadow: inset 0 1px 0 0 $btnBlue;
+    }
+    &--active {
+      cursor: default;
+    }
+  }
+
+  // Disabled
+  &--disabled {
+    color: $btnEGrey;
+    background: $btnWhite;
+    border: 1px solid $btnDGrey;
+    cursor: default;
+    &:hover, &:focus, &:active {
+      text-decoration: none;
+      color: $btnEGrey;
+      background: $btnWhite;
+      border: 1px solid $btnDGrey;
+    }
+  }
+
+  // Cancel - text link
+  &--cancel {
+    color: $btnTextLight;
+    background-color: transparent;
+    &:hover, &:focus, &:active {
+      text-decoration: underline;
+      color: $btnBlue;
+      background-color: transparent;
+    }
+    &--active {
+      cursor: default;
+    }
+  }
+
+  // CLOSE X
+  &--close {
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    margin: 0;
+    position: relative;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    &:focus, &:active {
+      background: none;
+    }
+    &:before, &:after {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 3px;
+      background: $chewyTxtGrey;
+      border-radius: 1px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+    }
+    &:before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    &:after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+  }
+
+  // Arrow Buttons
+  &--follow {
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      display: block;
+      width: 9px;
+      height: 15px;
+      background: url(/assets/img/icons/arrow-right-grey.svg) no-repeat 100%;
+      background-size: 9px 17px;
+      transform: translateY(-50%);
+    }
+  }
+  &--next {
+    &:after {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: url('//chewy.com/assets/img/icons/arrow-right-blue.svg') no-repeat right top/5px 9px $white;
+    }
+    &.cw-btn--disabled {
+      &:after {
+        background-image: url('//chewy.com/assets/img/icons/arrow-right-ddd-grey.svg');
+      }
+    }
+  }
+  &--prev {
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: url('//chewy.com/assets/img/icons/arrow-left-blue.svg') no-repeat left top/5px 9px $white;
+    }
+    &.cw-btn--disabled {
+      &:before {
+        background-image: url('//chewy.com/assets/img/icons/arrow-left-ddd-grey.svg');
+      }
+    }
+  }
+
+  &__group--stack {
+    .cw-btn {
+      margin-bottom: 15px;
+    }
+  }
+
+  // SIZES //
+  &--lg {
+    font-size: 24px;
+    padding: 15px 32px;
+  }
+  &--sm {
+    font-size: 16px;
+    padding: 11px 16px;
+    margin-right: 5px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  &--xs {
+    font-size: 13px;
+    padding: 8px;
+    margin-right: 5px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  &--narrow {
+    padding: 14px 15px 16px 15px;
+  }
+  &--half {
+    width: 49%;
+    display: block;
+    float: left;
+    &:first-child {
+      margin-right: 1%;
+    }
+    &:last-child {
+      margin-left: 1%;
+      margin-right: 0;
+    }
+  }
+  &--full {
+    width: 100%;
+    margin-right: 0;
+  }
+}
