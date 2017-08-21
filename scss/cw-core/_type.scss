@@ -1,0 +1,242 @@
+////
+/// Variables and functions relating to global type.
+////
+
+/// Set the base font size for the document root.
+///
+/// @value {Number(px)}
+$cw-type-size-root: 10px !default;
+
+/// Typeface baseline ratio.
+///
+/// @value {Number(unitless)}
+$cw-type-baseline-ratio: .625 !default;
+
+/// Font size and spacing definitions.
+///
+/// @prop {Map} base
+///   Base size definition for the document.
+/// @prop {Number(px)} base.size
+/// @prop {Number(px)} base.height
+/// @prop {Number(px)} base.lead
+$cw-type-sizes: (
+  huge: (
+    size: 35px,
+    height: 40px,
+    lead: 40px
+  ),
+  giant: (
+    size: 22px,
+    height: 22px,
+    lead: 26px
+  ),
+  large: (
+    size: 18px,
+    height: 25px,
+    lead: 26px
+  ),
+  base: (
+    size: 16px,
+    height: 25px,
+    lead: 30px
+  ),
+  small: (
+    size: 15px,
+    height: 25px,
+    lead: 30px
+  ),
+  tiny: (
+    size: 14px,
+    height: 20px,
+    lead: 25px
+  ),
+  micro: (
+    size: 12px,
+    height: 16px,
+    lead: 18px
+  )
+) !default;
+
+/// Define available font-weight values.
+///
+/// @type {Map}
+/// @param {Number} light
+/// @param {Number} regular
+/// @param {Number} medium
+/// @param {Number} bold
+$cw-type-weights: (
+  light: 300,
+  regular: 400,
+  medium: 500,
+  bold: 700
+) !default;
+
+/// Define the font-faily to be used.
+///
+/// @type {String}
+///   A string to be fed to the font-family attribute.
+$cw-utilities-font-family: Roboto, sans-serif;
+
+/// Get a type size definition from `$cw-type-sizes`.
+///
+/// @param {String} $definition
+///   The name of the definition to get.
+///
+/// @return {Map|null}
+///   If the definition is defined, the a definition map will be returned. If
+///   the definition does not exist, a warning will be emitted along with a
+///   `null` value.
+///
+/// @see $cw-type-sizes
+@function cw-get-type-size($definition) {
+
+  @if map-has-key($cw-type-sizes, $definition) {
+    @return map-get($cw-type-sizes, $definition);
+  }
+
+  @warn 'Font size "#{$definition}" is not defined.';
+  @return null;
+
+}
+
+/// Calculate line height of a type size definition.
+///
+/// @param {String} $definition
+///   Name of a type size definition.
+///
+/// @see $cw-type-sizes
+@function cw-type-line-height($definition) {
+
+  $map: cw-get-type-size($definition);
+  $size: map-get($map, size);
+  $height: map-get($map, height);
+
+  @return cw-whole-pixel-factor($height / $size, $size);
+
+}
+
+/// Calculte the distance to the baseline of a text definition.
+///
+/// @param {String} $definition
+///   The name of the text size definition to process.
+@function cw-type-baseline-distance($definition) {
+
+  $map: cw-get-type-size($definition);
+  $size: map-get($map, size);
+  $height: map-get($map, height);
+  $ratio: $size * $cw-type-baseline-ratio;
+
+  @return round(($height - $ratio) / 2 + $ratio);
+
+}
+
+/// Calculate spacing below a block element of a text size.
+///
+/// @param {String} $definition
+///   The name of the text size definition to process.
+///
+/// @return {Number(px)}
+@function cw-type-block-space-bottom($definition) {
+
+  $map: cw-get-type-size($definition);
+  $height: map-get($map, height);
+  $lead: map-get($map, lead);
+  $baseline-distance: cw-type-baseline-distance($definition);
+  $top-adjust: cw-type-block-adjust-top($definition);
+
+  @return $lead - ($height - $baseline-distance) - $top-adjust;
+  // @return $lead - ($height - $baseline-distance);
+
+}
+
+/// Calculate spacing above a block element of a text size.
+///
+/// @param {String} $definition
+///   The name of the text size definition to process.
+///
+/// @return {Number(px)}
+@function cw-type-block-adjust-top($definition) {
+
+  $map: cw-get-type-size($definition);
+  $height: map-get($map, height);
+  $baseline-distance: cw-type-baseline-distance($definition);
+
+  @return $height - $baseline-distance;
+
+}
+
+/// Calculate a factor that results in whole pixel units when compared a base
+/// pixel value.
+///
+/// @param {Number(unitless)} $factor
+///   The factor to compare for whole pixel-iness.
+/// @param {$base(px)} $base
+///   A base value to check the `$factor` against.
+///
+/// @return {Number(unitless)}
+@function cw-whole-pixel-factor($factor, $base) {
+
+  $base: cw-strip-unit($base);
+
+  @return round($factor * $base) / $base;
+
+}
+
+/// Remove the unit of a length
+///
+/// @param {Number} $number
+///   Number to remove unit from
+///
+/// @return {Number}
+///   Unitless number
+@function cw-strip-unit($number) {
+
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+
+}
+
+/// Convert a number using pixel units to a comparable relative unit value.
+///
+/// @param {Number(px)} $px
+/// @param {Number(px)} $base [$cw-type-size-root]
+///
+/// @return {Number(rem)}
+@function cw-px-to-relative($px, $base: $cw-type-size-root) {
+
+  @return $px / $base * 1rem;
+
+}
+
+/// Generate styles for an inline element.
+///
+/// @param {String} $definition
+@mixin cw-type-size-inline-element($definition) {
+
+  $map: cw-get-type-size($definition);
+  $size: cw-px-to-relative(map-get($map, size));
+
+  font-size: $size;
+  line-height: cw-type-line-height($definition);
+
+}
+
+/// Generate styles for a block element.
+///
+/// @param {String} $definition
+@mixin cw-type-size-block-element($definition) {
+
+  $map: cw-get-type-size($definition);
+  $size: cw-px-to-relative(map-get($map, size));
+  $height: map-get($map, height);
+
+  @include cw-type-size-inline-element($definition);
+  margin: {
+    top: cw-px-to-relative(cw-type-block-adjust-top($definition)) * -1;
+    bottom: cw-px-to-relative(cw-type-block-space-bottom($definition));
+  }
+
+}

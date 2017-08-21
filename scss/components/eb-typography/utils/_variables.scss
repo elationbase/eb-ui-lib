@@ -1,0 +1,72 @@
+////
+/// Define default variable values for typography.
+////
+
+/// Define alternate text styles.
+///
+/// @type {Map}
+$cw-typography-styles: (
+  heading-1-desktop: (
+    size: huge,
+    weight: light,
+    properties: (
+      color: $chewyText,
+      border: none
+    )
+  ),
+  heading-1-mobile: (
+    size: giant,
+    weight: regular,
+    properties: (
+      color: $chewyText,
+      border: none
+    )
+  ),
+  heading-2-desktop: (
+    size: giant,
+    weight: medium,
+    properties: (
+      color: $chewyText,
+      border: none
+    )
+  ),
+  heading-3: (
+    size: large,
+    weight: medium,
+    properties: (
+      color: $chewyText,
+      border: none
+    )
+  ),
+  body-1-desktop: (
+    size: base,
+    weight: regular,
+    properties: (
+      color: $chewyText,
+      border: none
+    )
+  ),
+  body-1-mobile: (
+    size: small,
+    weight: regular,
+    properties: (
+      color: $chewyText,
+      border: none
+    )
+  ),
+  body-2: (
+    size: tiny,
+    weight: regular,
+    properties: (
+      color: $chewyText,
+      border: none
+    )
+  ),
+  small: (
+    size: micro,
+    weight: regular,
+    properties: (
+      color: $chewyTextLt
+    )
+  )
+) !default;
