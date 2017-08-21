@@ -1,0 +1,116 @@
+/*
+ @name: cwTabs
+ @description: Page tabs content
+ @version: 1.0.1
+ @created: Aug. 2016
+ @by: ElationBase
+
+ * HTML Structure  *
+ <section class="eb-tabs">
+     <nav class="eb-tabs__head">
+         <ul>
+             <li><a href="#{{YOUR-TARGET-1}}" data-tab-target="{{YOUR-TARGET-1}}">{{TAB-NAME-1}}</a></li>
+             <li><a href="#{{YOUR-TARGET-2}}" data-tab-target="{{YOUR-TARGET-2}}">{{TAB-NAME-2}}</a></li>
+         </ul>
+     </nav>
+     <div class="eb-tabs__body">
+         <article id="{{YOUR-TARGET-1}}" data-tab-content="{{YOUR-TARGET-1}}">
+            <h2>{{TAB-NAME-1}}</h2>
+            <p>{{TAB-CONTENT-1}}</p>
+         </article>
+         <article id="{{YOUR-TARGET-2}}" data-tab-content="{{YOUR-TARGET-2}}">
+            <h2>{{TAB-NAME-2}}</h2>
+            <p>{{TAB-CONTENT-2}}</p>
+         </article>
+     </div>
+ </section>
+
+
+ * OPTIONS * add class to .eb-tab *
+ Size        //      Default: medium     //      Options: .eb-tab--sm
+*/
+
+.eb-tabs {
+  margin: 40px 0;
+  font-size: 10px;
+  &__head {
+    background-color: $ebBgLtGrey;
+    border-bottom: 1px solid $ebBtn;
+    ul {
+        @include j-cf();
+    }
+    li {
+      position: relative;
+      float: left;
+      border-right: 1px solid transparent;
+      border-left: 1px solid transparent;
+      &:hover {
+        background-color: $white;
+      }
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -1px;
+        left: -1px;
+        height: 3px;
+        background-color: $ebBgLtGrey;
+        transition: all 0.3s ease-out;
+      }
+      &.eb-tab--visible {
+        background-color: $white;
+        border-right-color: $ebBtn;
+        border-left-color: $ebBtn;
+        &:before {
+          background-color: $ebSoftOrange;
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          right: 0;
+          bottom: -1px;
+          left: 0;
+          height: 1px;
+          background-color: $white;
+        }
+      }
+    }
+    a {
+      display: block;
+      padding: 0 50px;
+      line-height: 60px;
+      @include media('<desktop') {
+        padding: 0 30px;
+        line-height: 50px;
+      }
+      font-size: 1.6em;
+      font-weight: 600;
+      color: $ebText;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__body {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    .eb-tab--hidden {
+      display: none;
+    }
+    .eb-tab--visible {
+      display: block;
+    }
+    h2 {
+        color: $ebText;
+    }
+  }
+
+  &--sm  {
+    li a {
+      padding: 0 25px;
+      line-height: 30px;
+    }
+  }
+}

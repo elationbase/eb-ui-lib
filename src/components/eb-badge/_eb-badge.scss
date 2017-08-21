@@ -1,0 +1,72 @@
+/*
+   @name: Badge
+   @description: Display product badges
+   @version: 1.0.1
+   @created: Jun, 2017
+   @by: elationbase
+
+   * HTML Structure  *
+    <span class="eb-badge">Product Description</span>
+
+    * OPTIONS *
+    Text Special Product  - Modifier: .eb-badge--simple > .eb-badge__text
+
+*/
+
+$sizeSmall : 15px;
+$sizeLarge : 25px;
+
+.eb-badge {
+  display: block;
+  position: relative;
+  @include fonts(12px, 400, left, 1.2em);
+  min-height: $sizeSmall;
+  padding-left: $sizeSmall + 5px;
+  a {
+    color: $ebBlue;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &:before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-right: 5px;
+    background-size: $sizeSmall;
+    width: $sizeSmall;
+    height: $sizeSmall;
+  }
+  &--simple {
+    padding-left: 0;
+    .eb-badge__text {
+      @include fonts(16px, 600, left, 1.2em);
+      display: inline-block;
+      padding: 1px 5px 2px 5px;
+      border-radius: 3px;
+      vertical-align: middle;
+      color: $white;
+      background-color: $ebGreen;
+    }
+  }
+
+  &--large {
+    font-size: 14px;
+    min-height: $sizeLarge;
+    padding-top: 4px;
+    padding-left: $sizeLarge + 5px;
+    &:before {
+      background-size: $sizeLarge;
+      width: $sizeLarge;
+      height: $sizeLarge;
+    }
+    &.eb-badge--simple {
+      padding-left: 0;
+      .eb-badge__text {
+        font-size: 18px;
+      }
+    }
+  }
+}

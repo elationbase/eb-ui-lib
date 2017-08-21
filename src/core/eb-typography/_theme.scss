@@ -1,0 +1,242 @@
+////
+/// Variables and functions relating to global type.
+////
+
+/// Set the base font size for the document root.
+///
+/// @value {Number(px)}
+$eb-type-size-root: 10px !default;
+
+/// Typeface baseline ratio.
+///
+/// @value {Number(unitless)}
+$eb-type-baseline-ratio: .625 !default;
+
+/// Font size and spacing definitions.
+///
+/// @prop {Map} base
+///   Base size definition for the document.
+/// @prop {Number(px)} base.size
+/// @prop {Number(px)} base.height
+/// @prop {Number(px)} base.lead
+$eb-type-sizes: (
+  huge: (
+    size: 35px,
+    height: 40px,
+    lead: 40px
+  ),
+  giant: (
+    size: 22px,
+    height: 22px,
+    lead: 26px
+  ),
+  large: (
+    size: 18px,
+    height: 25px,
+    lead: 26px
+  ),
+  base: (
+    size: 16px,
+    height: 25px,
+    lead: 30px
+  ),
+  small: (
+    size: 15px,
+    height: 25px,
+    lead: 30px
+  ),
+  tiny: (
+    size: 14px,
+    height: 20px,
+    lead: 25px
+  ),
+  micro: (
+    size: 12px,
+    height: 16px,
+    lead: 18px
+  )
+) !default;
+
+/// Define available font-weight values.
+///
+/// @type {Map}
+/// @param {Number} light
+/// @param {Number} regular
+/// @param {Number} medium
+/// @param {Number} bold
+$eb-type-weights: (
+  light: 300,
+  regular: 400,
+  medium: 500,
+  bold: 700
+) !default;
+
+/// Define the font-faily to be used.
+///
+/// @type {String}
+///   A string to be fed to the font-family attribute.
+$eb-utilities-font-family: Roboto, sans-serif;
+
+/// Get a type size definition from `$eb-type-sizes`.
+///
+/// @param {String} $definition
+///   The name of the definition to get.
+///
+/// @return {Map|null}
+///   If the definition is defined, the a definition map will be returned. If
+///   the definition does not exist, a warning will be emitted along with a
+///   `null` value.
+///
+/// @see $eb-type-sizes
+@function eb-get-type-size($definition) {
+
+  @if map-has-key($eb-type-sizes, $definition) {
+    @return map-get($eb-type-sizes, $definition);
+  }
+
+  @warn 'Font size "#{$definition}" is not defined.';
+  @return null;
+
+}
+
+/// Calculate line height of a type size definition.
+///
+/// @param {String} $definition
+///   Name of a type size definition.
+///
+/// @see $eb-type-sizes
+@function eb-type-line-height($definition) {
+
+  $map: eb-get-type-size($definition);
+  $size: map-get($map, size);
+  $height: map-get($map, height);
+
+  @return eb-whole-pixel-factor($height / $size, $size);
+
+}
+
+/// Calculte the distance to the baseline of a text definition.
+///
+/// @param {String} $definition
+///   The name of the text size definition to process.
+@function eb-type-baseline-distance($definition) {
+
+  $map: eb-get-type-size($definition);
+  $size: map-get($map, size);
+  $height: map-get($map, height);
+  $ratio: $size * $eb-type-baseline-ratio;
+
+  @return round(($height - $ratio) / 2 + $ratio);
+
+}
+
+/// Calculate spacing below a block element of a text size.
+///
+/// @param {String} $definition
+///   The name of the text size definition to process.
+///
+/// @return {Number(px)}
+@function eb-type-block-space-bottom($definition) {
+
+  $map: eb-get-type-size($definition);
+  $height: map-get($map, height);
+  $lead: map-get($map, lead);
+  $baseline-distance: eb-type-baseline-distance($definition);
+  $top-adjust: eb-type-block-adjust-top($definition);
+
+  @return $lead - ($height - $baseline-distance) - $top-adjust;
+  // @return $lead - ($height - $baseline-distance);
+
+}
+
+/// Calculate spacing above a block element of a text size.
+///
+/// @param {String} $definition
+///   The name of the text size definition to process.
+///
+/// @return {Number(px)}
+@function eb-type-block-adjust-top($definition) {
+
+  $map: eb-get-type-size($definition);
+  $height: map-get($map, height);
+  $baseline-distance: eb-type-baseline-distance($definition);
+
+  @return $height - $baseline-distance;
+
+}
+
+/// Calculate a factor that results in whole pixel units when compared a base
+/// pixel value.
+///
+/// @param {Number(unitless)} $factor
+///   The factor to compare for whole pixel-iness.
+/// @param {$base(px)} $base
+///   A base value to check the `$factor` against.
+///
+/// @return {Number(unitless)}
+@function eb-whole-pixel-factor($factor, $base) {
+
+  $base: eb-strip-unit($base);
+
+  @return round($factor * $base) / $base;
+
+}
+
+/// Remove the unit of a length
+///
+/// @param {Number} $number
+///   Number to remove unit from
+///
+/// @return {Number}
+///   Unitless number
+@function eb-strip-unit($number) {
+
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+
+}
+
+/// Convert a number using pixel units to a comparable relative unit value.
+///
+/// @param {Number(px)} $px
+/// @param {Number(px)} $base [$eb-type-size-root]
+///
+/// @return {Number(rem)}
+@function eb-px-to-relative($px, $base: $eb-type-size-root) {
+
+  @return $px / $base * 1rem;
+
+}
+
+/// Generate styles for an inline element.
+///
+/// @param {String} $definition
+@mixin eb-type-size-inline-element($definition) {
+
+  $map: eb-get-type-size($definition);
+  $size: eb-px-to-relative(map-get($map, size));
+
+  font-size: $size;
+  line-height: eb-type-line-height($definition);
+
+}
+
+/// Generate styles for a block element.
+///
+/// @param {String} $definition
+@mixin eb-type-size-block-element($definition) {
+
+  $map: eb-get-type-size($definition);
+  $size: eb-px-to-relative(map-get($map, size));
+  $height: map-get($map, height);
+
+  @include eb-type-size-inline-element($definition);
+  margin: {
+    top: eb-px-to-relative(eb-type-block-adjust-top($definition)) * -1;
+    bottom: eb-px-to-relative(eb-type-block-space-bottom($definition));
+  }
+
+}

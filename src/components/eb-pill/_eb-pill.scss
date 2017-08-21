@@ -1,0 +1,19 @@
+.eb-pill {
+  display: inline-block;
+  @include fonts(12px, 400, center, 1em);
+  border-radius: 3px;
+  padding: 4px 8px 5px 8px;
+  background: $ebLabelGrey;
+  color: $white;
+  &--default {
+    background: $ebBgGrey;
+    color: $ebText;
+  }
+  &--success {
+    background: $ebGreen;
+  }
+  &--error {
+    background: $priceRed;
+    font-weight: 600;
+  }
+}

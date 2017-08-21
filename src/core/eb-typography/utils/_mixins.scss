@@ -1,0 +1,60 @@
+////
+/// Define functionality for generating styles for defined styles.
+////
+
+/// Generate classes and styles for all type style definitions.
+@mixin eb-typography-styles {
+
+  @each $name, $style in $eb-type-styles {
+
+    .eb-type__#{$name} {
+
+      @include eb-type-style-block($style);
+
+    }
+
+    .eb-type__#{$name}--inline {
+
+      @include eb-type-style-inline($style);
+
+    }
+
+  }
+
+}
+
+/// Generate common styles for a type variation.
+///
+/// @param {Map} $style
+///   A type style definition.
+@mixin eb-type-style($style) {
+
+  font-weight: map-get($eb-type-weights, map-get($style, weight));
+
+  @each $property, $value in map-get($style, properties) {
+    #{$property}: $value;
+  }
+
+}
+
+/// Generate styles for a type variation used as a block element.
+///
+/// @param {Map} $style
+///   A type style definition.
+@mixin eb-type-style-block($style) {
+
+  @include eb-type-size-block-element(map-get($style, size));
+  @include eb-type-style($style);
+
+}
+
+/// Generate styles for a type variation used as a block element.
+///
+/// @param {Map} $style
+///   A type style definition
+@mixin eb-type-style-inline($style) {
+
+  @include eb-type-size-inline-element(map-get($style, size));
+  @include eb-type-style($style);
+
+}

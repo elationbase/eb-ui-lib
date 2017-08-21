@@ -1,0 +1,207 @@
+/*
+    @name: cwModal
+    @description: Simple modal window with transition options
+    @version: 1.0
+    @created: april 14, 2016
+    @by: ElationBase
+
+    * HTML Structure  *
+    // Trigger open modal
+    <a href="#" data-modal-target="my-modal-ID">Open Modal ID home-videos</a>
+    // Modal Window
+    <aside id="my-modal-ID" class="eb-modal">
+        <div class="eb-modal-mask"></div>
+        <div class="eb-modal-wrap">
+            <div class="eb-modal-body">
+                <header>
+                    <h2>Title Goes Here (not mandatory)</h2>
+                    <a href="#" class="eb-modal-close">x</a>
+                </header>
+                <div class="eb-modal-content">
+                    <!-- Content Goes Here -->
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    * OPTIONS * add classes to aside.eb-modal *
+    Size        //      Default: medium     //      Options: .eb-modal-sm || .eb-modal-lg
+    Transition  //      Default: fade       //      Options: .eb-modal-grow || .eb-modal-shrink
+    Color       //      Default: dark       //      Options: .eb-modal-light
+    Time        //      Default: normal     //      Options: .eb-modal-slow || .eb-modal-fast
+
+
+    * JS Call  *
+    <script>
+        // Trigger open modal
+        $('[data-modal-target').on('click', this, function() {
+            cwModal.launch(target);
+        });
+        // Trigger close modal
+        $('.eb-modal-close, .eb-modal-mask').on('click', this, function() {
+            cwModal.close(time);
+        });
+    </script>
+
+ */
+
+.eb-modal {
+  visibility: hidden;
+  display: none;
+  * {
+    box-sizing: border-box;
+  }
+  &-mask {
+    position: fixed;
+    z-index: 901;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+    opacity: 0;
+    background: $black;
+    transition: opacity 0.2s linear;
+  }
+  &-wrap {
+    position: fixed;
+    z-index: 902;
+    top: 20px;
+    opacity: 0;
+    transition: opacify 0.5s ease-out, visibility 0s ease-out;
+    min-width: 500px;
+    max-width: 90%;
+    max-height: 90%;
+  }
+  &-body {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    background-color: $white;
+    border-radius: 3px;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+    overflow: auto;
+    text-align: left;
+    position: relative;
+  }
+  &-content {
+    overflow: auto;
+    margin-top: 40px;
+  }
+  header {
+    background-color: $white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    h2 {
+      font: 300 20px/2em "Roboto", sans-serif;
+      width: 100%;
+      margin: 0 0 -10px 0;
+      padding: 0 55px 0 20px;
+      text-align: left;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      color: $ltgrey;
+    }
+    .eb-modal-close {
+      font: 300 40px/1em "Roboto", sans-serif;
+      position: absolute;
+      z-index: 903;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      background: url('img/icon-close-blue.svg') no-repeat center;
+      background-size: 20px;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  &-pad {
+    padding: 10px;
+  }
+  &.eb-modal-lg {
+    .eb-modal-body {
+      max-width: 90%;
+    }
+  }
+  &.eb-modal-sm {
+    .eb-modal-body {
+      max-width: 400px;
+    }
+  }
+  &.eb-modal-slide {
+    .eb-modal-wrap {
+      transition-property: top;
+      top: -100%;
+      opacity: 1;
+    }
+  }
+  &.eb-modal-grow {
+    .eb-modal-wrap {
+      transition-property: transform;
+      transform: scale(0.9);
+    }
+  }
+  &.eb-modal-shrink {
+    .eb-modal-wrap {
+      transition-property: transform;
+      transform: scale(1.1);
+    }
+  }
+  &.eb-modal-active {
+    display: block;
+  }
+  &.eb-modal-visible {
+    visibility: visible;
+    .eb-modal-mask {
+      opacity: 0.7;
+    }
+    .eb-modal-wrap {
+      opacity: 1;
+    }
+    &.eb-modal-slide {
+      .eb-modal-wrap {
+        top: 20px;
+      }
+    }
+    &.eb-modal-grow {
+      .eb-modal-wrap {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    &.eb-modal-shrink {
+      .eb-modal-wrap {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+  &.eb-modal-light {
+    .eb-modal-mask {
+      background: white;
+      background: rgba(255,255,255,0.9);
+    }
+  }
+  &.eb-modal-transparent {
+    .eb-modal-body, .eb-modal-content {
+      overflow: inherit;
+      margin-top: 0;
+    }
+  }
+  &.eb-modal-slow {
+    .eb-modal-wrap {
+      transition-duration: 0.8s;
+    }
+  }
+  &.eb-modal-fast {
+    .eb-modal-wrap {
+      transition-duration: 0.25s;
+    }
+  }
+}
