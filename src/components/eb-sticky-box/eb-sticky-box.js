@@ -6,11 +6,11 @@
     @by: ElationBase
 
     * HTML Structure  *
-    <article>
-        <section class="stick-box-parent">
+    <article class="eb-stick-box-parent">
+        <section>
             <!-- Content Goes Here -->
         </section>
-        <section class="stick-box">
+        <section class="eb-stick-box">
             <!-- Content Goes Here -->
         </section>
     </article>
@@ -19,22 +19,22 @@
 
     stickBox
     (selector of the element you want to stick)
-    Sticky Selector:        default: '.stick-box'
+    Sticky Selector:        default: '.eb-stick-box'
                             options: Selector
 
     parentBox
     (selector of the element you want to start and stopr the stick)
-    Parent Selector:        default: '.stick-box-parent'
+    Parent Selector:        default: '.eb-stick-box-parent'
                             options: Selector
 
     fixClass
     (Specific class name of the fixed CSS .is-fixed { position: fixed; } )
-    Sticky Class:           default: 'is-fixed'
+    Sticky Class:           default: 'eb-fixed'
                             options: Class Name
 
     absClass
     (Specific class name of the absolute CSS .is-absolute { position: absolute; bottom: 0; } )
-    Absolute Class:         default: 'is-absolute'
+    Absolute Class:         default: 'eb-absolute'
                             options: Class Name
 
     offsetTop
@@ -50,7 +50,7 @@
     * JS Call  *
     <script>
         (function($) {
-            $('.stick-box').cwStickyScrollBox();
+            $('.eb-stick-box').ebStickyScrollBox();
         })(jQuery);
     </script>
 
@@ -58,13 +58,13 @@
 
 (function ($, window, document) {
   $.fn.extend({
-    cwStickyScrollBox: function (options) {
+    ebStickyScrollBox: function (options) {
       // options for the plugin
       var defaults = {
-        stickBox: '.stick-box',
-        parentBox: '.stick-box-parent',
-        absClass: 'is-absolute',
-        fixClass: 'is-fixed',
+        stickBox: '.eb-stick-box',
+        parentBox: '.eb-stick-box-parent',
+        absClass: 'eb-absolute',
+        fixClass: 'eb-fixed',
         offsetTop: 0,
         offsetBottom: 0
       };

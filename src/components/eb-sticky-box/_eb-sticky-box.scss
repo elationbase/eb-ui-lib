@@ -1,0 +1,10 @@
+.eb-stick-box {
+    &.eb-fixed {
+        position: fixed;
+        top: 0;
+    }
+    &.eb-absolute {
+        position: absolute;
+        bottom: 0;
+    }
+}
