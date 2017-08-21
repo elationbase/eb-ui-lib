@@ -1,6 +1,6 @@
 {
   "name": "eb-ui-lib",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ElationBase UI Library",
   "main": "index.js",
   "directories": {
